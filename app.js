@@ -8,6 +8,7 @@ app.set('view engine', 'ejs');
  
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
+console.log('MONGODB_URI:', process.env.MONGODB_URI);
 const mongoURI = process.env.MONGODB_URI; 
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
