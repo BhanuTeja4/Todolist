@@ -2,17 +2,20 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
+require('dotenv').config();
  
 app.set('view engine', 'ejs');
  
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
- 
-mongoose.connect(
-  "mongodb+srv://bhanutejateegala:Bhanu2811421@cluster0.wlamjxv.mongodb.net/todolistDB"
-)
-.then(()=>console.log('connected'))
-.catch(e=>console.log(e));
+const mongoURI = process.env.MONGODB_URI; 
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((err) => {
+    console.error('MongoDB connection error:', err);
+  });
  
 //Created Schema
 const itemsSchema = new mongoose.Schema({
